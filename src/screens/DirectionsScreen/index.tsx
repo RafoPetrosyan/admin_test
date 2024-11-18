@@ -3,6 +3,7 @@ import { FlatList, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react
 import COLORS from '../../constants/colors.ts';
 import SCREENS from '../../constants/screens.ts';
 import { ScreenProps } from '../../types';
+import normalize from '../../utils/normalize.ts';
 
 type Direction = {
    id: string;
@@ -127,10 +128,10 @@ const getStatusText = (status: Direction['status']) => {
 
 const styles = StyleSheet.create({
    listContainer: {
-      padding: 10,
+      padding: normalize(10),
    },
    directionContainer: {
-      padding: 15,
+      padding: normalize(15),
       borderRadius: 8,
       backgroundColor: '#f9f9f9',
       marginBottom: 10,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
       marginBottom: 5,
    },
    createButton: {
-      padding: 15,
+      padding: normalize(15),
       backgroundColor: COLORS.primary,
       alignItems: 'center',
       margin: 10,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
    },
    updateButton: {
       flex: 1,
-      padding: 10,
+      padding: normalize(10),
       backgroundColor: COLORS.secondary,
       borderRadius: 5,
       alignItems: 'center',
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
    },
    deleteButton: {
       flex: 1,
-      padding: 10,
+      padding: normalize(10),
       backgroundColor: COLORS.danger,
       borderRadius: 5,
       alignItems: 'center',

@@ -19,15 +19,10 @@ const DirectionsStackScreen: React.FC = () => {
    return (
       <View style={{ flex: 1, paddingTop: insets.top, paddingHorizontal: 5 }}>
          <DirectionsStack.Navigator screenOptions={{ headerShown: false }}>
-            <DirectionsStack.Screen
-               name={SCREENS.DIRECTIONS}
-               component={DirectionsScreen}
-               options={{ title: 'Directions' }}
-            />
+            <DirectionsStack.Screen name={SCREENS.DIRECTIONS} component={DirectionsScreen} />
             <DirectionsStack.Screen
                name={SCREENS.DIRECTIONS_FORM}
                component={DirectionFormScreen}
-               options={{ title: 'Directions Form' }}
             />
          </DirectionsStack.Navigator>
       </View>

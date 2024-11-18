@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import COLORS from '../../constants/colors.ts';
+import normalize from '../../utils/normalize.ts';
 
 type Customer = {
    id: string;
@@ -41,13 +42,13 @@ const CustomersScreen = () => {
 
 const styles = StyleSheet.create({
    listContainer: {
-      padding: 10,
+      padding: normalize(10),
    },
    customerContainer: {
-      padding: 15,
+      padding: normalize(15),
       borderRadius: 8,
       backgroundColor: '#f1f8ff',
-      marginBottom: 10,
+      marginBottom: normalize(10),
       shadowColor: '#000',
       shadowOpacity: 0.1,
       shadowRadius: 3,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
    },
    customerName: {
       fontWeight: 'bold',
-      marginBottom: 5,
+      marginBottom: normalize(5),
    },
    text: {
       color: COLORS.textColor,

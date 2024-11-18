@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import COLORS from '../../constants/colors.ts';
+import normalize from '../../utils/normalize.ts';
 
 type Order = {
    id: string;
@@ -42,13 +43,13 @@ const OrdersScreen = () => {
 
 const styles = StyleSheet.create({
    listContainer: {
-      padding: 10,
+      padding: normalize(10),
    },
    orderContainer: {
-      padding: 15,
+      padding: normalize(15),
       borderRadius: 8,
       backgroundColor: '#f9f9f9',
-      marginBottom: 10,
+      marginBottom: normalize(10, true),
       shadowColor: '#000',
       shadowOpacity: 0.1,
       shadowRadius: 3,

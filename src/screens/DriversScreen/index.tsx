@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { FlatList, View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, Alert, TextStyle } from 'react-native';
 import COLORS from '../../constants/colors.ts';
 import SCREENS from '../../constants/screens.ts';
 import { ScreenProps } from '../../types';
+import normalize from '../../utils/normalize.ts';
 
 type Driver = {
    id: string;
@@ -23,21 +24,21 @@ const DriverListScreen: React.FC<ScreenProps> = ({ navigation }) => {
    const [drivers, setDrivers] = useState<Driver[]>(initialDrivers);
 
    const handleCreateDriver = () => {
-      navigation.navigate(SCREENS.DRIVER_FORM, { mode: 'create' });
+      navigation.navigate(SCREENS.DRIVERS_FORM, { mode: 'create' });
    };
 
    const handleUpdateDriver = (driver: Driver) => {
-      navigation.navigate(SCREENS.DRIVER_FORM, { mode: 'update', driver });
+      navigation.navigate(SCREENS.DRIVERS_FORM, { mode: 'update', driver });
    };
 
    const handleDeleteDriver = (id: string) => {
-      Alert.alert('Confirm', 'Do you want to remove this driver?', [
+      Alert.alert('Հաստատել', 'Ցանկանում եք հեռացնել վարորդին?', [
          {
-            text: 'Cancel',
+            text: 'Չեղարկել',
             style: 'cancel',
          },
          {
-            text: 'Remove',
+            text: 'Հեռացնել',
             onPress: () => {
                setDrivers((prevDrivers) => prevDrivers.filter((item) => item.id !== id));
             },
@@ -47,20 +48,20 @@ const DriverListScreen: React.FC<ScreenProps> = ({ navigation }) => {
 
    const renderDriver = ({ item }: { item: Driver }) => (
       <View style={styles.driverContainer}>
-         <Text style={[styles.text, styles.nameText]}>Name: {item.name}</Text>
+         <Text style={[styles.text, styles.nameText]}>Անուն: {item.name}</Text>
          <Text style={styles.text}>
-            Status: <Text style={getStatusStyle(item.status)}>{item.status}</Text>
+            Կարգավիճակ: <Text style={getStatusStyle(item.status)}>{item.status}</Text>
          </Text>
-         <Text style={styles.text}>Rating: {item.rating}</Text>
+         <Text style={styles.text}>Վարկանիշ: {item.rating}</Text>
          <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.updateButton} onPress={() => handleUpdateDriver(item)}>
-               <Text style={styles.buttonText}>Update</Text>
+               <Text style={styles.buttonText}>Թարմացնել</Text>
             </TouchableOpacity>
             <TouchableOpacity
                style={styles.deleteButton}
                onPress={() => handleDeleteDriver(item.id)}
             >
-               <Text style={styles.buttonText}>Delete</Text>
+               <Text style={styles.buttonText}>Հեռացնել</Text>
             </TouchableOpacity>
          </View>
       </View>
@@ -69,7 +70,7 @@ const DriverListScreen: React.FC<ScreenProps> = ({ navigation }) => {
    return (
       <View style={{ flex: 1 }}>
          <TouchableOpacity style={styles.createButton} onPress={handleCreateDriver}>
-            <Text style={styles.buttonText}>Create New Driver</Text>
+            <Text style={styles.buttonText}>Ավելացնել նոր վարորդ</Text>
          </TouchableOpacity>
          <FlatList
             data={drivers}
@@ -81,7 +82,7 @@ const DriverListScreen: React.FC<ScreenProps> = ({ navigation }) => {
    );
 };
 
-const getStatusStyle = (status: Driver['status']) => {
+const getStatusStyle = (status: Driver['status']): TextStyle => {
    switch (status) {
       case 'active':
          return { color: 'green', fontWeight: 'bold' };
@@ -110,22 +111,22 @@ const styles = StyleSheet.create({
    nameText: {
       fontWeight: 'bold',
       fontSize: 16,
-      marginBottom: 5,
+      marginBottom: normalize(5, true),
    },
    createButton: {
-      padding: 15,
+      padding: normalize(15),
       backgroundColor: COLORS.primary,
       alignItems: 'center',
-      margin: 10,
+      margin: normalize(10),
       borderRadius: 8,
    },
    buttonContainer: {
       flexDirection: 'row',
-      marginTop: 10,
+      marginTop: normalize(10),
    },
    updateButton: {
       flex: 1,
-      padding: 10,
+      padding: normalize(10),
       backgroundColor: COLORS.secondary,
       borderRadius: 5,
       alignItems: 'center',
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
    },
    deleteButton: {
       flex: 1,
-      padding: 10,
+      padding: normalize(10),
       backgroundColor: COLORS.danger,
       borderRadius: 5,
       alignItems: 'center',
