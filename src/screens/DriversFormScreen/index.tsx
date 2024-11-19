@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Controller } from 'react-hook-form';
+import RNPickerSelect from 'react-native-picker-select';
 import COLORS from '../../constants/colors.ts';
 import { ScreenProps } from '../../types';
 import useContainer from './hook.ts';
@@ -16,6 +16,7 @@ const DriverFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
       <View style={styles.container}>
          <Text style={styles.title}>{mode === 'create' ? 'Ավելացնել վարորդ' : 'Թարմացնել'}</Text>
 
+         {/* Name Input */}
          <Controller
             name="name"
             control={control}
@@ -31,21 +32,32 @@ const DriverFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
          />
          {errors.name && (
             <Text style={styles.errorText}>
-               {typeof errors.name.message === 'string' ? errors?.name.message : ''}
+               {typeof errors.name.message === 'string' ? errors.name.message : ''}
             </Text>
          )}
 
+         {/* Status Dropdown */}
          <Controller
             name="status"
             control={control}
             render={({ field: { onChange, value } }) => (
-               <Picker selectedValue={value} style={styles.input} onValueChange={onChange}>
-                  <Picker.Item label="Active" value="active" />
-                  <Picker.Item label="Inactive" value="inactive" />
-               </Picker>
+               <RNPickerSelect
+                  onValueChange={onChange}
+                  items={[
+                     { label: 'Active', value: 'active' },
+                     { label: 'Inactive', value: 'inactive' },
+                  ]}
+                  value={value}
+                  style={pickerSelectStyles}
+                  placeholder={{
+                     label: 'Ընտրեք կարգավիճակ',
+                     value: null,
+                  }}
+               />
             )}
          />
 
+         {/* Rating Input */}
          <Controller
             name="rating"
             control={control}
@@ -124,6 +136,36 @@ const styles = StyleSheet.create({
    buttonText: {
       color: '#fff',
       fontWeight: 'bold',
+   },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+   inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: COLORS.borderColor,
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30,
+      backgroundColor: '#fff',
+      marginBottom: 12,
+   },
+   inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: COLORS.borderColor,
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30,
+      backgroundColor: '#fff',
+      marginBottom: 12,
+   },
+   placeholder: {
+      color: '#999',
    },
 });
 
