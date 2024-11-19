@@ -18,17 +18,23 @@ const initialDirections: Direction[] = [
       id: '1',
       route: 'San Francisco to Oakland',
       date: '2024-11-15',
-      time: '10:30 AM',
+      time: '2024-11-19T10:00:00.000Z',
       status: 'onRoute',
    },
    {
       id: '2',
       route: 'Downtown to Airport',
       date: '2024-11-14',
-      time: '08:15 AM',
+      time: '2024-11-19T10:00:00.000Z',
       status: 'completed',
    },
-   { id: '3', route: 'Station to Mall', date: '2024-11-13', time: '03:45 PM', status: 'pending' },
+   {
+      id: '3',
+      route: 'Station to Mall',
+      date: '2024-11-19T10:00:00.000Z',
+      time: '03:45 PM',
+      status: 'pending',
+   },
 ];
 
 const DirectionsScreen: React.FC<ScreenProps> = ({ navigation }) => {

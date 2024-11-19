@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
 
-function DriverIcon(props) {
+function CarIcon(props) {
    return (
       <Svg
          xmlns="http://www.w3.org/2000/svg"
@@ -23,4 +23,4 @@ function DriverIcon(props) {
    );
 }
 
-export default DriverIcon;
+export default CarIcon;

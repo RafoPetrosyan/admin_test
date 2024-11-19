@@ -1,71 +1,97 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Controller } from 'react-hook-form';
 import COLORS from '../../constants/colors.ts';
 import { ScreenProps } from '../../types';
 import useContainer from './hook.ts';
 
-const DriverFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
-   const { mode, onSubmit, control, handleSubmit, errors } = useContainer({
+const CarsFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
+   const { control, onSubmit, handleSubmit, errors, mode, car } = useContainer({
       route,
       navigation,
    });
 
    return (
       <View style={styles.container}>
-         <Text style={styles.title}>{mode === 'create' ? 'Ավելացնել վարորդ' : 'Թարմացնել'}</Text>
+         <Text style={styles.title}>{mode === 'create' ? 'Ավելացնել մեքենա' : 'Թարմացնել'}</Text>
 
          <Controller
-            name="name"
+            name="make"
             control={control}
-            rules={{ required: 'Name is required' }}
+            rules={{ required: 'Car make is required' }}
             render={({ field: { onChange, value } }) => (
                <TextInput
-                  style={[styles.input, errors.name && styles.errorBorder]}
-                  placeholder="Վարորդի անունը"
+                  style={[styles.input, errors.make && styles.errorBorder]}
+                  placeholder="Մեքենայի արտադրողը"
                   value={value}
                   onChangeText={onChange}
                />
             )}
          />
-         {errors.name && (
+         {errors.make && (
             <Text style={styles.errorText}>
-               {typeof errors.name.message === 'string' ? errors?.name.message : ''}
+               {typeof errors.make.message === 'string' ? errors.make.message : ''}
             </Text>
          )}
 
          <Controller
-            name="status"
+            name="model"
             control={control}
+            rules={{ required: 'Car model is required' }}
             render={({ field: { onChange, value } }) => (
-               <Picker selectedValue={value} style={styles.input} onValueChange={onChange}>
-                  <Picker.Item label="Active" value="active" />
-                  <Picker.Item label="Inactive" value="inactive" />
-               </Picker>
+               <TextInput
+                  style={[styles.input, errors.model && styles.errorBorder]}
+                  placeholder="Մեքենայի մոդելը"
+                  value={value}
+                  onChangeText={onChange}
+               />
             )}
          />
+         {errors.model && (
+            <Text style={styles.errorText}>
+               {typeof errors.model.message === 'string' ? errors.model.message : ''}
+            </Text>
+         )}
 
          <Controller
-            name="rating"
+            name="number"
+            control={control}
+            rules={{ required: 'Car number is required' }}
+            render={({ field: { onChange, value } }) => (
+               <TextInput
+                  style={[styles.input, errors.number && styles.errorBorder]}
+                  placeholder="Մեքենայի համարանիշները"
+                  value={value}
+                  onChangeText={onChange}
+               />
+            )}
+         />
+         {errors.number && (
+            <Text style={styles.errorText}>
+               {typeof errors.number.message === 'string' ? errors.number.message : ''}
+            </Text>
+         )}
+
+         <Controller
+            name="seats"
             control={control}
             rules={{
-               required: 'Rating is required',
-               pattern: { value: /^[1-5]$/, message: 'Rating must be between 1 and 5' },
+               required: 'Number of seats is required',
+               min: { value: 1, message: 'Seats must be at least 1' },
             }}
             render={({ field: { onChange, value } }) => (
                <TextInput
-                  style={[styles.input, errors.rating && styles.errorBorder]}
-                  placeholder="Վարկանիշ (1-5)"
+                  style={[styles.input, errors.seats && styles.errorBorder]}
+                  placeholder="Նստատեղերի թիվը"
                   keyboardType="numeric"
                   value={value}
                   onChangeText={onChange}
                />
             )}
          />
-         {errors.rating && (
+         {errors.seats && (
             <Text style={styles.errorText}>
-               {typeof errors.rating.message === 'string' ? errors.rating.message : ''}
+               {typeof errors.seats.message === 'string' ? errors.seats.message : ''}
             </Text>
          )}
 
@@ -127,4 +153,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default DriverFormScreen;
+export default CarsFormScreen;

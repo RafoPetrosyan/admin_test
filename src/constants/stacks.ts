@@ -1,7 +1,7 @@
 const STACKS = {
    DIRECTIONS: 'Directions',
    DRIVERS: 'Drivers',
-   CUSTOMERS: 'Customers',
+   CARS: 'Cars',
    ORDERS: 'Orders',
 } as const;
 

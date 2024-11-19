@@ -2,20 +2,20 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DirectionsStackScreen from '../directionsStack';
 import { IS_IOS_PLATFORM } from '../../constants';
-import DriverIcon from '../../assets/svg/DricerIcon';
+import CarIcon from '../../assets/svg/CarIcon';
 import CustomersIcon from '../../assets/svg/CustomersIcon';
 import OrdersIcon from '../../assets/svg/OrdersIcon';
 import OrdersScreen from '../../screens/OrdersScreen';
 import DirectionsIcon from '../../assets/svg/DirectionsIcon';
 import STACKS from '../../constants/stacks.ts';
 import DriversStackScreen from '../driversStack';
-import CustomersScreen from '../../screens/CustomersScreen';
+import CarsStackScreen from '../carsStack';
 import COLORS from '../../constants/colors.ts';
 
 type RootTabParamList = {
    Directions: undefined;
    Drivers: undefined;
-   Customers: undefined;
+   Cars: undefined;
    Orders: undefined;
    Notifications: undefined;
 };
@@ -53,7 +53,7 @@ const Tabs: React.FC = () => {
             options={{
                tabBarLabel: 'Վարորդներ',
                tabBarIcon: ({ focused }) => (
-                  <DriverIcon
+                  <CustomersIcon
                      stroke={focused ? COLORS.primary : COLORS.textColor}
                      width={24}
                      height={24}
@@ -62,12 +62,12 @@ const Tabs: React.FC = () => {
             }}
          />
          <Tab.Screen
-            name={STACKS.CUSTOMERS}
-            component={CustomersScreen}
+            name={STACKS.CARS}
+            component={CarsStackScreen}
             options={{
-               tabBarLabel: 'հաճախորդներ',
+               tabBarLabel: 'Մեքենաներ',
                tabBarIcon: ({ focused }) => (
-                  <CustomersIcon
+                  <CarIcon
                      stroke={focused ? COLORS.primary : COLORS.textColor}
                      width={24}
                      height={24}

@@ -3,8 +3,8 @@ const SCREENS = {
    DIRECTIONS_FORM: 'DirectionsFormScreen',
    DRIVERS: 'DriversScreen',
    DRIVERS_FORM: 'DriversFormScreen',
-   CUSTOMERS: 'CustomersScreen',
-   CUSTOMERS_FORM: 'CustomersFormScreen',
+   CARS: 'CarsScreen',
+   CARS_FORM: 'CarsFormScreen',
 } as const;
 
 export default SCREENS;

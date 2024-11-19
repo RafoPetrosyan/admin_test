@@ -1,51 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import DatePicker from 'react-native-date-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import COLORS from '../../constants/colors.ts';
 import { ScreenProps } from '../../types';
+import useContainer from './hook.ts';
 
 const DirectionFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
-   const { mode, direction } = route.params || {};
-   const [date, setDate] = useState(new Date());
-   const [time, setTime] = useState(new Date());
-   const [openDatePicker, setOpenDatePicker] = useState(false);
-   const [openTimePicker, setOpenTimePicker] = useState(false);
-
    const {
+      onSubmit,
       control,
+      formatTimeTo24Hours,
+      openDatePicker,
       handleSubmit,
+      openTimePicker,
+      formattedTime,
+      setOpenDatePicker,
+      setOpenTimePicker,
+      errors,
+      mode,
+      date,
+      setDate,
       setValue,
-      formState: { errors },
-   } = useForm();
-
-   useEffect(() => {
-      if (mode === 'update' && direction) {
-         setValue('route', direction.route);
-         setValue('date', new Date(direction.date));
-         setValue('time', new Date(direction.time));
-         setValue('status', direction.status);
-         setDate(new Date(direction.date));
-         setTime(new Date(direction.time));
-      }
-   }, [mode, direction, setValue]);
-
-   const onSubmit = (data: any) => {
-      const payload = {
-         ...data,
-         date: date.toISOString(),
-         time: time.toISOString(),
-      };
-
-      if (mode === 'create') {
-         console.log('Creating direction:', payload);
-      } else {
-         console.log('Updating direction:', { id: direction.id, ...payload });
-      }
-
-      navigation.goBack();
-   };
+      time,
+      setTime,
+      setFormattedTime,
+   } = useContainer({ navigation, route });
 
    return (
       <View style={styles.container}>
@@ -93,16 +74,20 @@ const DirectionFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
 
          {/* Time Picker */}
          <TouchableOpacity style={styles.input} onPress={() => setOpenTimePicker(true)}>
-            <Text>{time ? time.toLocaleTimeString() : 'Ընտրեք ժամանակ'}</Text>
+            <Text>{formattedTime || 'Ընտրեք ժամանակ'}</Text>
          </TouchableOpacity>
          <DatePicker
             modal
             open={openTimePicker}
             date={time}
             mode="time"
+            locale="en_GB"
+            is24hourSource="locale"
             onConfirm={(selectedTime) => {
+               console.log(selectedTime, 'selectedTime');
                setOpenTimePicker(false);
                setTime(selectedTime);
+               setFormattedTime(formatTimeTo24Hours(selectedTime));
                setValue('time', selectedTime);
             }}
             onCancel={() => setOpenTimePicker(false)}
