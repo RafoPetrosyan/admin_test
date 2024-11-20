@@ -5,6 +5,8 @@ const SCREENS = {
    DRIVERS_FORM: 'DriversFormScreen',
    CARS: 'CarsScreen',
    CARS_FORM: 'CarsFormScreen',
+   ORDERS: 'OrdersScreen',
+   CONFIRM_ORDER: 'ConfirmOrderScreen',
 } as const;
 
 export default SCREENS;

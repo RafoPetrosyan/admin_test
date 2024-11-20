@@ -5,12 +5,12 @@ import { IS_IOS_PLATFORM } from '../../constants';
 import CarIcon from '../../assets/svg/CarIcon';
 import CustomersIcon from '../../assets/svg/CustomersIcon';
 import OrdersIcon from '../../assets/svg/OrdersIcon';
-import OrdersScreen from '../../screens/OrdersScreen';
 import DirectionsIcon from '../../assets/svg/DirectionsIcon';
 import STACKS from '../../constants/stacks.ts';
 import DriversStackScreen from '../driversStack';
 import CarsStackScreen from '../carsStack';
 import COLORS from '../../constants/colors.ts';
+import OrdersStackScreen from '../ordersStack';
 
 type RootTabParamList = {
    Directions: undefined;
@@ -77,7 +77,7 @@ const Tabs: React.FC = () => {
          />
          <Tab.Screen
             name={STACKS.ORDERS}
-            component={OrdersScreen}
+            component={OrdersStackScreen}
             options={{
                tabBarLabel: 'Պատվերներ',
                tabBarIcon: ({ focused }) => (
