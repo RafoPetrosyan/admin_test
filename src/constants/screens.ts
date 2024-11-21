@@ -1,6 +1,6 @@
 const SCREENS = {
-   DIRECTIONS: 'DirectionsScreen',
-   DIRECTIONS_FORM: 'DirectionsFormScreen',
+   SCHEDULE: 'ScheduleScreen',
+   SCHEDULE_FORM: 'ScheduleFormScreen',
    DRIVERS: 'DriversScreen',
    DRIVERS_FORM: 'DriversFormScreen',
    CARS: 'CarsScreen',

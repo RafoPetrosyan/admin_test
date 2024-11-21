@@ -1,6 +1,6 @@
 import React from 'react';
+import moment from 'moment';
 import { FlatList, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import COLORS from '../../constants/colors.ts';
 import normalize from '../../utils/normalize.ts';
 import useContainer from './hook.ts';
@@ -44,7 +44,6 @@ const orders: Order[] = [
 ];
 
 const OrdersScreen: React.FC<ScreenProps> = ({ navigation }) => {
-   const insets = useSafeAreaInsets();
    const { handleCancel } = useContainer();
 
    const renderOrder = ({ item }: { item: Order }) => (
@@ -56,7 +55,7 @@ const OrdersScreen: React.FC<ScreenProps> = ({ navigation }) => {
          </View>
          <View style={styles.detailRow}>
             <Text style={styles.label}>Օրը և ժամը:</Text>
-            <Text style={styles.value}>{item.date}</Text>
+            <Text style={styles.value}>{moment(item.date).format('LLL')}</Text>
          </View>
          <View style={styles.detailRow}>
             <Text style={styles.label}>Ուղևորներ:</Text>
@@ -81,7 +80,7 @@ const OrdersScreen: React.FC<ScreenProps> = ({ navigation }) => {
    );
 
    return (
-      <View style={[styles.container, { paddingTop: insets.top }]}>
+      <View style={styles.container}>
          <FlatList
             data={orders}
             renderItem={renderOrder}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import DirectionsStackScreen from '../directionsStack';
+import SchedulesStackScreen from '../schedulesStack';
 import { IS_IOS_PLATFORM } from '../../constants';
 import CarIcon from '../../assets/svg/CarIcon';
 import CustomersIcon from '../../assets/svg/CustomersIcon';
@@ -11,13 +11,14 @@ import DriversStackScreen from '../driversStack';
 import CarsStackScreen from '../carsStack';
 import COLORS from '../../constants/colors.ts';
 import OrdersStackScreen from '../ordersStack';
+import ReviewsScreen from '../../screens/ReviewsScreen';
 
 type RootTabParamList = {
-   Directions: undefined;
+   Schedule: undefined;
    Drivers: undefined;
    Cars: undefined;
    Orders: undefined;
-   Notifications: undefined;
+   Reviews: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -30,14 +31,28 @@ const Tabs: React.FC = () => {
             tabBarActiveTintColor: COLORS.primary,
             tabBarInactiveTintColor: COLORS.textColor,
             tabBarStyle: { height: IS_IOS_PLATFORM ? 85 : 55, paddingBottom: 10 },
-            tabBarLabelStyle: { fontSize: 12 },
+            tabBarLabelStyle: { fontSize: 10 },
          })}
       >
          <Tab.Screen
-            name={STACKS.DIRECTIONS}
-            component={DirectionsStackScreen}
+            name={STACKS.ORDERS}
+            component={OrdersStackScreen}
             options={{
-               tabBarLabel: 'Ուղղություններ',
+               tabBarLabel: 'Պատվերներ',
+               tabBarIcon: ({ focused }) => (
+                  <OrdersIcon
+                     stroke={focused ? COLORS.primary : COLORS.textColor}
+                     width={24}
+                     height={24}
+                  />
+               ),
+            }}
+         />
+         <Tab.Screen
+            name={STACKS.SCHEDULE}
+            component={SchedulesStackScreen}
+            options={{
+               tabBarLabel: 'Ժամանակացույց',
                tabBarIcon: ({ focused }) => (
                   <DirectionsIcon
                      stroke={focused ? COLORS.primary : COLORS.textColor}
@@ -76,12 +91,12 @@ const Tabs: React.FC = () => {
             }}
          />
          <Tab.Screen
-            name={STACKS.ORDERS}
-            component={OrdersStackScreen}
+            name={STACKS.REVIEWS}
+            component={ReviewsScreen}
             options={{
-               tabBarLabel: 'Պատվերներ',
+               tabBarLabel: 'Կարծիքներ',
                tabBarIcon: ({ focused }) => (
-                  <OrdersIcon
+                  <CarIcon
                      stroke={focused ? COLORS.primary : COLORS.textColor}
                      width={24}
                      height={24}

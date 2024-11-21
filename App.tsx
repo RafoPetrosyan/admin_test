@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { StatusBar, View } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from './src/services/navigations.ts';
 import Tabs from './src/navigations/tabs';
 import { store } from './src/store/store.ts';
-import { ThemeProvider } from './src/providers/ThemeProvider.tsx';
+import messaging from '@react-native-firebase/messaging';
 
 const App: React.FC = () => {
    // const isDarkMode = useColorScheme() === 'dark';
@@ -18,27 +18,38 @@ const App: React.FC = () => {
       flex: 1,
    };
 
+   useEffect(() => {
+      const unsubscribe = messaging().onMessage(async (remoteMessage: any) => {
+         Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
+
+      requestPermission();
+
+      return unsubscribe;
+   }, []);
+
+   async function requestPermission() {
+      const authStatus = await messaging().requestPermission();
+      if (authStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+         console.log('User granted messaging permission!');
+      }
+   }
    return (
       <Provider store={store}>
-         <ThemeProvider>
-            <View style={backgroundStyle}>
-               <StatusBar
-                  barStyle={'dark-content'}
-                  // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                  backgroundColor={backgroundStyle.backgroundColor}
-               />
-               <SafeAreaProvider>
-                  <NavigationContainer ref={navigationRef}>
-                     <Tabs />
-                  </NavigationContainer>
-               </SafeAreaProvider>
-            </View>
-         </ThemeProvider>
+         <View style={backgroundStyle}>
+            <StatusBar
+               barStyle={'dark-content'}
+               // barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+               backgroundColor={backgroundStyle.backgroundColor}
+            />
+            <SafeAreaProvider>
+               <NavigationContainer ref={navigationRef}>
+                  <Tabs />
+               </NavigationContainer>
+            </SafeAreaProvider>
+         </View>
       </Provider>
    );
 };
 
 export default App;
-
-
-// "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"

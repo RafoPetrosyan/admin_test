@@ -5,7 +5,7 @@ import SCREENS from '../../constants/screens.ts';
 import { ScreenProps } from '../../types';
 import normalize from '../../utils/normalize.ts';
 
-type Direction = {
+type Schedule = {
    id: string;
    route: string;
    date: string;
@@ -13,7 +13,7 @@ type Direction = {
    status: 'onRoute' | 'completed' | 'pending';
 };
 
-const initialDirections: Direction[] = [
+const initialDirections: Schedule[] = [
    {
       id: '1',
       route: 'San Francisco to Oakland',
@@ -37,15 +37,15 @@ const initialDirections: Direction[] = [
    },
 ];
 
-const DirectionsScreen: React.FC<ScreenProps> = ({ navigation }) => {
-   const [directions, setDirections] = useState<Direction[]>(initialDirections);
+const ScheduleScreen: React.FC<ScreenProps> = ({ navigation }) => {
+   const [directions, setDirections] = useState<Schedule[]>(initialDirections);
 
    const handleCreateDirection = () => {
-      navigation.navigate(SCREENS.DIRECTIONS_FORM, { mode: 'create' });
+      navigation.navigate(SCREENS.SCHEDULE_FORM, { mode: 'create' });
    };
 
-   const handleUpdateDirection = (direction: Direction) => {
-      navigation.navigate(SCREENS.DIRECTIONS_FORM, { mode: 'update', direction });
+   const handleUpdateDirection = (direction: Schedule) => {
+      navigation.navigate(SCREENS.SCHEDULE_FORM, { mode: 'update', direction });
    };
 
    const handleDeleteDirection = (id: string) => {
@@ -63,7 +63,7 @@ const DirectionsScreen: React.FC<ScreenProps> = ({ navigation }) => {
       ]);
    };
 
-   const renderDirection = ({ item }: { item: Direction }) => (
+   const renderDirection = ({ item }: { item: Schedule }) => (
       <View style={styles.directionContainer}>
          <Text style={[styles.text, styles.routeText]}>Երթուղին: {item.route}</Text>
          <Text style={styles.text}>Ամսաթիվ: {item.date}</Text>
@@ -106,7 +106,7 @@ const DirectionsScreen: React.FC<ScreenProps> = ({ navigation }) => {
    );
 };
 
-const getStatusStyle = (status: Direction['status']) => {
+const getStatusStyle = (status: Schedule['status']) => {
    switch (status) {
       case 'onRoute':
          return { color: 'orange', fontWeight: 'bold' };
@@ -119,7 +119,7 @@ const getStatusStyle = (status: Direction['status']) => {
    }
 };
 
-const getStatusText = (status: Direction['status']) => {
+const getStatusText = (status: Schedule['status']) => {
    switch (status) {
       case 'onRoute':
          return 'Այս պահին երթուղում';
@@ -187,4 +187,4 @@ const styles = StyleSheet.create({
    },
 });
 
-export default DirectionsScreen;
+export default ScheduleScreen;

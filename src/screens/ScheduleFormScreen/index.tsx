@@ -7,7 +7,7 @@ import COLORS from '../../constants/colors.ts';
 import { ScreenProps } from '../../types';
 import useContainer from './hook.ts';
 
-const DirectionFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
+const ScheduleFormScreen: React.FC<ScreenProps> = ({ route, navigation }) => {
    const {
       onSubmit,
       control,
@@ -190,4 +190,4 @@ const pickerSelectStyles = StyleSheet.create({
    },
 });
 
-export default DirectionFormScreen;
+export default ScheduleFormScreen;
